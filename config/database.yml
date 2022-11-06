@@ -81,6 +81,7 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
   database: rails_akomedico_production
   username: rails_akomedico
   password: <%= ENV["RAILS_AKOMEDICO_DATABASE_PASSWORD"] %>
