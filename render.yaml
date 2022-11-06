@@ -2,6 +2,7 @@ databases:
   - name: akomedico
     databaseName: akomedico
     user: akomedico
+    plan: free
 
 services:
   - type: web
