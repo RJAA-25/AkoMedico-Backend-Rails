@@ -134,6 +134,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
     t.string "last_name"
     t.string "email"
     t.string "password_digest"
+    t.boolean "email_confirmed"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
