@@ -1,6 +1,6 @@
 require "test_helper"
 
-class EmergencyTest < ActiveSupport::TestCase
+class EmergencyContactTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
