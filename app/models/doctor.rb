@@ -6,6 +6,7 @@ class Doctor < ApplicationRecord
   before_validation do
     self.first_name = format_name(first_name) if first_name
     self.last_name = format_name(last_name) if last_name
+    self.specialty = format_name(specialty) if specialty
   end
 
   validates :first_name,

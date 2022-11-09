@@ -20,9 +20,14 @@ class User < ApplicationRecord
   end
 
   before_update do
-    self.email_confirmed = false if self.email_changed?
+    self.email_confirmed = false if email_changed?
   end
   
+  validates :uid,
+                  presence: true,
+                  uniqueness: true,
+                  length: { is: 10 },
+                  on: :create
   validates :first_name, 
                   presence: true
   validates :last_name, 
@@ -33,12 +38,12 @@ class User < ApplicationRecord
                   format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, 
                   length: { in: 6..20 },
-                  if: :target_password?
+                  if: :password_changed?
 
   private
 
-  def target_password?
-    self.password_digest_changed?
+  def password_changed?
+    password_digest_changed?
   end
 
   def format_name(name)
