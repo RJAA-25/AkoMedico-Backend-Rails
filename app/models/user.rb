@@ -23,11 +23,6 @@ class User < ApplicationRecord
     self.email_confirmed = false if email_changed?
   end
   
-  validates :uid,
-                  presence: true,
-                  uniqueness: true,
-                  length: { is: 10 },
-                  on: :create
   validates :first_name, 
                   presence: true
   validates :last_name, 
