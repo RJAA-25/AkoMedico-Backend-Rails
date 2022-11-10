@@ -27,7 +27,8 @@ class Consultation < ApplicationRecord
                   presence: true,
                   comparison: { less_than_or_equal_to: Date.current }
   validates :notes,
-                  allow_nil: true
+                  allow_nil: true,
+                  length: { maximum: 1000 }
   
   private
 
