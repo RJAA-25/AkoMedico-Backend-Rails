@@ -1,30 +1,30 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { User.new(first_name: "John", last_name: "Doe", email: "johndoe@email.com", password: "password") }
+  let(:user) { FactoryBot.build(:user) }
 
     it "validates presence of first name" do
-      user.first_name = ""
+      user.first_name = nil
       expect(user).to_not be_valid
     end
 
     it "validates presence of last name" do
-      user.last_name = ""
+      user.last_name = nil
       expect(user).to_not be_valid
     end
 
     it "validates presence of email" do
-      user.email = ""
+      user.email = nil
       expect(user).to_not be_valid
     end
 
     it "validates format of email" do
-      user.email = "invalid"
+      user.email = "invalid_format"
       expect(user).to_not be_valid
     end
 
     it "validates presence of password" do
-      user.password = ""
+      user.password = nil
       user.password_digest = nil
       expect(user).to_not be_valid
     end
