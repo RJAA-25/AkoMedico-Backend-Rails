@@ -14,7 +14,7 @@ RSpec.describe Condition, type: :model do
   end
 
   it "validates start date later than current day" do
-    condition.start_date = Date.current + 1.day
+    condition.start_date = 1.day.from_now
     expect(condition).to_not be_valid
   end
 
