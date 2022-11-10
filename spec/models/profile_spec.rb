@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Profile, type: :model do
-# let!(:user) { FactoryBot.create(:user) }
-let(:profile) { FactoryBot.build(:profile) }
+  let(:profile) { FactoryBot.build(:profile) }
 
   it "validates presence of birthdate" do
     profile.birthdate = nil
