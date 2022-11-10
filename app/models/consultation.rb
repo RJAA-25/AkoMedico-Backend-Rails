@@ -23,7 +23,7 @@ class Consultation < ApplicationRecord
                   presence: true
   validates :health_facility,
                   presence: true
-  validates :date,
+  validates :schedule,
                   presence: true,
                   comparison: { less_than_or_equal_to: Date.current }
   validates :notes,

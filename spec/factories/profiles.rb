@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :profile do
-    birthdate { 18.years.ago }
+    birth_date { 18.years.ago }
     address { "Street, City, Province" }
     nationality { "Filipino" }
     civil_status { "single" }

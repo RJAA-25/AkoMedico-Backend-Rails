@@ -24,12 +24,12 @@ class Admission < ApplicationRecord
                   presence: true
   validates :health_facility,
                   presence: true
-  validates :start,
+  validates :start_date,
                   presence: true,
                   comparison: { less_than_or_equal_to: Date.current }
-  validates :end,
+  validates :end_date,
                   presence: true,
-                  comparison: { greater_than: :start, less_than_or_equal_to: Date.current }
+                  comparison: { greater_than: :start_date, less_than_or_equal_to: Date.current }
   validates :notes,
                   allow_nil: true
   

@@ -5,8 +5,8 @@ class CreateAdmissions < ActiveRecord::Migration[7.0]
       t.string :folder_id
       t.string :diagnosis
       t.string :health_facility
-      t.date :start
-      t.date :end
+      t.date :start_date
+      t.date :end_date
       t.text :notes
       t.references :user, null: false, foreign_key: true
 

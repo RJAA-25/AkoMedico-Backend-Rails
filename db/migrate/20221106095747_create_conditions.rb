@@ -2,8 +2,8 @@ class CreateConditions < ActiveRecord::Migration[7.0]
   def change
     create_table :conditions do |t|
       t.string :diagnosis
-      t.date :start
-      t.date :end
+      t.date :start_date
+      t.date :end_date
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

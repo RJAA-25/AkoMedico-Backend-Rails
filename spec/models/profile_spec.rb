@@ -3,13 +3,13 @@ require 'rails_helper'
 RSpec.describe Profile, type: :model do
   let(:profile) { FactoryBot.build(:profile) }
 
-  it "validates presence of birthdate" do
-    profile.birthdate = nil
+  it "validates presence of birth date" do
+    profile.birth_date = nil
     expect(profile).to_not be_valid
   end
 
   it "validates user is of legal age" do
-    profile.birthdate = 18.years.ago + 1.day
+    profile.birth_date = 18.years.ago + 1.day
     expect(profile).to_not be_valid
   end
 

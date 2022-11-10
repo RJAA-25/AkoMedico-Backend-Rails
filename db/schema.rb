@@ -29,8 +29,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
     t.string "folder_id"
     t.string "diagnosis"
     t.string "health_facility"
-    t.date "start"
-    t.date "end"
+    t.date "start_date"
+    t.date "end_date"
     t.text "notes"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -45,8 +45,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
 
   create_table "conditions", force: :cascade do |t|
     t.string "diagnosis"
-    t.date "start"
-    t.date "end"
+    t.date "start_date"
+    t.date "end_date"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -103,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.date "birthdate"
+    t.date "birth_date"
     t.string "address"
     t.string "nationality"
     t.string "civil_status"

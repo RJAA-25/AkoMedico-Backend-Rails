@@ -3,11 +3,11 @@ class Condition < ApplicationRecord
 
   validates :diagnosis,
                   presence: true
-  validates :start,
+  validates :start_date,
                   presence: true,
                   comparison: { less_than_or_equal_to: Date.current }
-  validates :end,
+  validates :end_date,
                   allow_nil: true,
-                  comparison: { greater_than: :start, less_than_or_equal_to: Date.current }
+                  comparison: { greater_than: :start_date, less_than_or_equal_to: Date.current }
 
 end
