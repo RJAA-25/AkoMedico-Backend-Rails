@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  namespace :api do
+    namespace :v1 do
+      
+      # Registrations
+      post "register" => "registrations#create"
+      
+      # Sessions
+      post "login" => "sessions#create"
+      post "logout" => "sessions#destroy" 
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+      # Confirmations
+      get "verify" => "confirmations#verify"
+      post "resend" => "confirmations#resend"
+    end
+  end
 end
