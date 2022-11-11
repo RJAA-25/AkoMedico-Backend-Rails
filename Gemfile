@@ -50,3 +50,4 @@ end
 
 gem 'figaro'
 gem 'jwt'
+gem 'google-apis-drive_v3'
