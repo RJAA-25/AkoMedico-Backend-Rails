@@ -1,12 +1,12 @@
 class User < ApplicationRecord
   has_secure_password
 
-  has_one :profile
-  has_many :emergency_contacts
-  has_many :conditions
-  has_many :doctors
-  has_many :consultations
-  has_many :admssions
+  has_one :profile, dependent: :destroy
+  has_many :emergency_contacts, dependent: :destroy
+  has_many :conditions, dependent: :destroy
+  has_many :doctors, dependent: :destroy
+  has_many :consultations, dependent: :destroy
+  has_many :admssions, dependent: :destroy
 
   before_validation do
     self.first_name = format_name(first_name) if first_name
@@ -17,10 +17,6 @@ class User < ApplicationRecord
     self.uid = SecureRandom.alphanumeric(10).upcase
     self.email = email.downcase
     self.email_confirmed = false
-  end
-
-  before_update do
-    self.email_confirmed = false if email_changed?
   end
   
   validates :first_name, 

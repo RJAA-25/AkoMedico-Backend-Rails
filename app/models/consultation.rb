@@ -1,8 +1,8 @@
 class Consultation < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :doctors
-  has_many :prescriptions, as: :prescription_issue
-  has_many :results, as: :result_issue
+  has_many :prescriptions, as: :prescription_issue, dependent: :destroy
+  has_many :results, as: :result_issue, dependent: :destroy
 
   before_validation do
     self.health_facility = format_facility if health_facility

@@ -9,6 +9,7 @@ class Api::V1::SessionsController < ApplicationController
       session[:user_uid] = @user.uid
       set_csrf_cookie
       render json: {  
+                      user: @user,
                       email_confirmed: @user.email_confirmed,
                       message: "Logged in successfully." 
                     },

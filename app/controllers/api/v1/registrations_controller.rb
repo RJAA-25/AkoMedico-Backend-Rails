@@ -9,6 +9,7 @@ class Api::V1::RegistrationsController < ApplicationController
       # Create Google Drive folder - User
       # Create Google Drive folder - Consultations
       # Create Google Drive folder - Admissions
+      # Send Confirmation Email
       payload = { user_email: @user.email }
       verify_token = JsonWebToken.encode(payload, 3.days.from_now)
       render json: { 
