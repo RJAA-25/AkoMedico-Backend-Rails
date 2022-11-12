@@ -12,6 +12,9 @@ Rails.application.routes.draw do
       # Confirmations
       get "verify" => "confirmations#verify"
       post "resend" => "confirmations#resend"
+
+      # Users
+      patch "user/update-email" => "users#update_email"
     end
   end
 end

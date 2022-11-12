@@ -1,6 +1,7 @@
 class Api::V1::ConfirmationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:verify]
   skip_before_action :authenticate_request, only: [:verify]
+  skip_before_action :account_confirmed
 
   def verify
     token = params[:token]
@@ -35,7 +36,7 @@ class Api::V1::ConfirmationsController < ApplicationController
                     status: :accepted
     else
       payload = { user_email: @current_user.email }
-      verify_token = JsonWebToken.encode(payload, 10.seconds.from_now)
+      verify_token = JsonWebToken.encode(payload, 3.days.from_now)
       render json: { 
                       verify_token: verify_token, 
                       message: "A confirmation email has been sent to verify your account."

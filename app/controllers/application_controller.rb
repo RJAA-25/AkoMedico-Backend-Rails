@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
   rescue_from ActionController::InvalidAuthenticityToken,with: :new_csrf_cookie
 
   before_action :authenticate_request
+  before_action :account_confirmed
 
   private
 
@@ -25,6 +26,12 @@ class ApplicationController < ActionController::API
     unless @current_user
       render json: { message: "Please log in to continue." },
                     status: :unauthorized
+    end
+  end
+
+  def account_confirmed
+    unless @current_user.email_confirmed
+      render json: { error: "Account needs to be confirmed to continue" }, status: :forbidden
     end
   end
 end
