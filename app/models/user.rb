@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :conditions, dependent: :destroy
   has_many :doctors, dependent: :destroy
   has_many :consultations, dependent: :destroy
-  has_many :admssions, dependent: :destroy
+  has_many :admissions, dependent: :destroy
 
   before_validation do
     self.first_name = format_name(first_name) if first_name

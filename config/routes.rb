@@ -18,6 +18,11 @@ Rails.application.routes.draw do
       post "users/update-email" => "users#update_email"
       post "users/update-password" => "users#update_password"
       delete "users/destroy" => "users#destroy"
+
+      #Profiles
+      post "profiles/create" => "profiles#create"
+      patch "profiles/update" => "profiles#update"
+      
     end
   end
 end
