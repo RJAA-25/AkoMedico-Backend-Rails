@@ -1,4 +1,4 @@
-class Api::V1::PrescriptionsController < ApplicationController
+class Api::V1::ResultsController < ApplicationController
   before_action :set_target
 
   def create
@@ -15,9 +15,9 @@ class Api::V1::PrescriptionsController < ApplicationController
       #                           image_link: links[:image],
       #                           download_link: links[:download]
       #                         }
-      #   @target.prescriptions.create(upload_params)
+      #   @target.results.create(upload_params)
       # end
-      render json: { message: "Prescriptions have been added." },
+      render json: { message: "Results have been added." },
                       status: :created
     else
       render json: { error: "Upload failed. Files are missing."},
@@ -39,14 +39,14 @@ class Api::V1::PrescriptionsController < ApplicationController
       #                           image_link: links[:image],
       #                           download_link: links[:download]
       #                         }
-      #   @target.prescriptions.create(upload_params)
+      #   @target.results.create(upload_params)
       # end
     end
     if remove_files
-      # @prescriptions = @current_user.prescriptions
+      # @results = @current_user.results
       # remove_files.each do |file_id|
       #   @drive.delete_file(file_id)
-      #   file = @prescriptions.find_by(file_id: file_id)
+      #   file = @results.find_by(file_id: file_id)
       #   file.destroy
       # end
     end
@@ -54,7 +54,7 @@ class Api::V1::PrescriptionsController < ApplicationController
       render json: { error: "Update failed. Files are missing."},
                     status: :unprocessable_entity
     else
-      render json: { message: "Prescriptions have been updated." },
+      render json: { message: "Results have been updated." },
                     status: :ok
     end
   end
@@ -62,7 +62,7 @@ class Api::V1::PrescriptionsController < ApplicationController
   private
 
   def set_target
-    case prescription_issue
+    case result_issue
     when "consultation"
       @target = Consultation.find_by(uid: params[:uid])
       no_record_found unless @target
@@ -72,21 +72,21 @@ class Api::V1::PrescriptionsController < ApplicationController
     end
   end
 
-  def prescription_params
+  def result_params
     params
-      .require(:prescription)
+      .require(:result)
       .permit(:issue, upload: [], remove: [])
   end
 
-  def prescription_issue
-    prescription_params.to_h["issue"]
+  def result_issue
+    result_params.to_h["issue"]
   end
 
   def upload_files
-    prescription_params.to_h["upload"]
+    result_params.to_h["upload"]
   end
-  
+
   def remove_files
-    prescription_params.to_h["remove"]
+    result_params.to_h["remove"]
   end
 end

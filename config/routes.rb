@@ -46,6 +46,10 @@ Rails.application.routes.draw do
       # Prescriptions
       post "prescriptions/create/:uid" => "prescriptions#create"
       patch "prescriptions/update/:uid" => "prescriptions#update"
+
+      # Results
+      post "results/create/:uid" => "results#create"
+      patch "results/update/:uid" => "results#update"
     end
   end
 end
