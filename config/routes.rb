@@ -27,6 +27,11 @@ Rails.application.routes.draw do
       post "emergency-contacts/create" => "emergency_contacts#create"
       patch "emergency-contacts/update/:id" => "emergency_contacts#update"
       delete "emergency-contacts/destroy/:id" => "emergency_contacts#destroy"
+
+      # Conditions
+      post "conditions/create" => "conditions#create"
+      patch "conditions/update/:id" => "conditions#update"
+      delete "conditions/destroy/:id" => "conditions#destroy"
     end
   end
 end

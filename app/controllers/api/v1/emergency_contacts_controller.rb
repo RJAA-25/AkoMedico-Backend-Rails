@@ -20,9 +20,9 @@ class Api::V1::EmergencyContactsController < ApplicationController
     if @emergency_contact.update(emergency_contact_params)
       render json: { 
                     emergency_contact: @emergency_contact,
-                    messasge: "Emergency contact updated successfully."
+                    messasge: "Emergency contact has been updated."
                   },
-                  status: :created
+                  status: :ok
     else
       render json: { errors: @emergency_contact.errors.messages },
                     status: :unprocessable_entity
