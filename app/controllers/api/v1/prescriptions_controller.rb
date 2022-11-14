@@ -43,7 +43,7 @@ class Api::V1::PrescriptionsController < ApplicationController
       # end
     end
     if remove_files
-      # @prescriptions = @current_user.prescriptions
+      # @prescriptions = @target.prescriptions
       # remove_files.each do |file_id|
       #   @drive.delete_file(file_id)
       #   file = @prescriptions.find_by(file_id: file_id)

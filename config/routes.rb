@@ -50,6 +50,10 @@ Rails.application.routes.draw do
       # Results
       post "results/create/:uid" => "results#create"
       patch "results/update/:uid" => "results#update"
+
+      # Abstracts
+      post "abstracts/create/:uid" => "abstracts#create"
+      patch "abstracts/update/:uid" => "abstracts#update"
     end
   end
 end
