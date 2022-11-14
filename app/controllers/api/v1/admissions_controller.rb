@@ -1,6 +1,4 @@
 class Api::V1::AdmissionsController < ApplicationController
-  include GoogleDrive
-
   before_action :set_admission, except: :create
 
   def create

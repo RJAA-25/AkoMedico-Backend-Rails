@@ -42,6 +42,10 @@ Rails.application.routes.draw do
       post "admissions/create" => "admissions#create"
       patch "admissions/update/:uid" => "admissions#update"
       delete "admissions/destroy/:uid" => "admissions#destroy"
+
+      # Prescriptions
+      post "prescriptions/create/:uid" => "prescriptions#create"
+      patch "prescriptions/update/:uid" => "prescriptions#update"
     end
   end
 end

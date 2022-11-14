@@ -1,6 +1,4 @@
 class Api::V1::ConsultationsController < ApplicationController
-  include GoogleDrive
-
   before_action :set_consultation, except: :create
   
   def create

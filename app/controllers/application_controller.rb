@@ -2,6 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
   include ActionController::RequestForgeryProtection
   include JsonWebToken
+  include GoogleDrive
 
   protect_from_forgery with: :exception
   rescue_from ActionController::InvalidAuthenticityToken,with: :new_csrf_cookie
