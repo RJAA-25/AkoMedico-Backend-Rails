@@ -18,7 +18,7 @@ class Consultation < ApplicationRecord
                   presence: true
   validates :schedule,
                   presence: true,
-                  comparison: { less_than_or_equal_to: Date.current }
+                  comparison: { less_than_or_equal_to: Date.today }
   validates :notes,
                   allow_nil: true,
                   length: { maximum: 1000 }
