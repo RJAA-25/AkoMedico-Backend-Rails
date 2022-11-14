@@ -19,10 +19,14 @@ Rails.application.routes.draw do
       post "users/update-password" => "users#update_password"
       delete "users/destroy" => "users#destroy"
 
-      #Profiles
+      # Profiles
       post "profiles/create" => "profiles#create"
       patch "profiles/update" => "profiles#update"
       
+      # Emergency Contacts
+      post "emergency-contacts/create" => "emergency_contacts#create"
+      patch "emergency-contacts/update/:id" => "emergency_contacts#update"
+      delete "emergency-contacts/destroy/:id" => "emergency_contacts#destroy"
     end
   end
 end

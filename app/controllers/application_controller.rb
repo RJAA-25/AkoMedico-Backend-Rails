@@ -5,6 +5,7 @@ class ApplicationController < ActionController::API
 
   protect_from_forgery with: :exception
   rescue_from ActionController::InvalidAuthenticityToken,with: :new_csrf_cookie
+  rescue_from ActiveRecord::RecordNotFound, with: :no_record_found
 
   before_action :authenticate_request
   before_action :account_confirmed
@@ -19,6 +20,11 @@ class ApplicationController < ActionController::API
     set_csrf_cookie
     render json: { message: "Request secured. Please try again." },
                   status: :unprocessable_entity
+  end
+
+  def no_record_found
+    render json: { error: "Record not found." },
+                  status: :not_found
   end
 
   def authenticate_request
