@@ -10,9 +10,9 @@ Rails.application.routes.draw do
       post "logout" => "sessions#destroy" 
 
       # Confirmations
-      get "verify" => "confirmations#verify"
-      post "resend" => "confirmations#resend"
-      get "update-email" => "confirmations#update"
+      get "confirmations/verify" => "confirmations#verify"
+      post "confirmations/resend" => "confirmations#resend"
+      get "confirmations/update-email" => "confirmations#update"
 
       # Users
       post "users/update-email" => "users#update_email"
@@ -32,6 +32,11 @@ Rails.application.routes.draw do
       post "conditions/create" => "conditions#create"
       patch "conditions/update/:id" => "conditions#update"
       delete "conditions/destroy/:id" => "conditions#destroy"
+
+      # Consultations
+      post "consultations/create" => "consultations#create"
+      patch "consultations/update/:uid" => "consultations#update"
+      delete "consultations/destroy/:uid" => "consultations#destroy"
     end
   end
 end

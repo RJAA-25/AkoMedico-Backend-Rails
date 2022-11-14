@@ -15,7 +15,7 @@ class User < ApplicationRecord
   end
 
   before_create do
-    self.uid = SecureRandom.alphanumeric(10).upcase
+    self.uid = SecureRandom.alphanumeric(12)
     self.email = email.downcase
     self.email_confirmed = false
   end

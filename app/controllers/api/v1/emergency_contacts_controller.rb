@@ -38,8 +38,8 @@ class Api::V1::EmergencyContactsController < ApplicationController
   private
 
   def set_emergency_contact
-    @emergency_contact = @current_user.emergency_contacts.find(params[:id])
-    raise Active::RecordNotFound unless @emergency_contact
+    @emergency_contact = EmergencyContact.find(params[:id])
+    no_record_found unless @emergency_contact
   end
 
   def emergency_contact_params

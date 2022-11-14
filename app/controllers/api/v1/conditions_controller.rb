@@ -38,8 +38,8 @@ class Api::V1::ConditionsController < ApplicationController
   private
 
   def set_condition
-    @condition = @current_user.conditions.find(params[:id])
-    raise Active::RecordNotFound unless @condition
+    @condition = Condition.find(params[:id])
+    no_record_found unless @condition
   end
 
   def condition_params

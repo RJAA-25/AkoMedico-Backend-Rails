@@ -10,16 +10,9 @@ class Admission < ApplicationRecord
   end
 
   before_create do
-    self.uid = SecureRandom.alphanumeric(10).upcase
+    self.uid = SecureRandom.alphanumeric(12)
   end
 
-  validates :uid,
-                  presence: true,
-                  uniqueness: true,
-                  length: { is: 10 },
-                  on: :create
-  validates :folder_id,
-                  presence: true
   validates :diagnosis,
                   presence: true
   validates :health_facility,

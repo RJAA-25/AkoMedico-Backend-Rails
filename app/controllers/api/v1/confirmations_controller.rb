@@ -8,10 +8,7 @@ class Api::V1::ConfirmationsController < ApplicationController
     begin
       decoded = JsonWebToken.decode(token)
       @user = User.find_by(email: decoded[:user_email])
-      raise ActiveRecord::RecordNotFound if !@user
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: "Record not found." },
-                    status: :not_found
+      no_record_found unless @user
     rescue JWT::ExpiredSignature
       render json: { error: "Confirmation invalid. Token has expired." },
                     status: :unprocessable_entity
@@ -51,10 +48,7 @@ class Api::V1::ConfirmationsController < ApplicationController
     begin
       decoded = JsonWebToken.decode(token)
       @user = User.find_by(uid: decoded[:user_uid])
-      raise ActiveRecord::RecordNotFound if !@user
-    rescue ActiveRecord::RecordNotFound
-      render json: { error: "Record not found." },
-                    status: :not_found
+      no_record_found unless @user
     rescue JWT::ExpiredSignature
       render json: { error: "Confirmation invalid. Token has expired." },
                     status: :unprocessable_entity
