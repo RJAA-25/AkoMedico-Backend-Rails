@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_many :emergency_contacts, dependent: :destroy
+  has_many :categories, dependent: :destroy
   has_many :conditions, dependent: :destroy
   has_many :doctors, dependent: :destroy
   has_many :consultations, dependent: :destroy

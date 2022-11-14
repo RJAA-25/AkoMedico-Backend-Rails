@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
   create_table "admissions_doctors", id: false, force: :cascade do |t|
     t.bigint "admission_id", null: false
     t.bigint "doctor_id", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "folder_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
   create_table "conditions", force: :cascade do |t|
@@ -142,6 +151,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
 
   add_foreign_key "abstracts", "admissions"
   add_foreign_key "admissions", "users"
+  add_foreign_key "categories", "users"
   add_foreign_key "conditions", "users"
   add_foreign_key "consultations", "users"
   add_foreign_key "doctors", "users"
