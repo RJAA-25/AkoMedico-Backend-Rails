@@ -3,10 +3,10 @@ require 'rails_helper'
 RSpec.describe Admission, type: :model do
   let(:admit) { FactoryBot.build(:admission) }
 
-  it "validates presence of folder id" do
-    admit.folder_id = nil
-    expect(admit).to_not be_valid
-  end
+  # it "validates presence of folder id" do
+  #   admit.folder_id = nil
+  #   expect(admit).to_not be_valid
+  # end
 
   it "validates presence of diagnosis" do
     admit.diagnosis = nil

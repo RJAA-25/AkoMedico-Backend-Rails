@@ -18,7 +18,6 @@ module GoogleDrive
     end
 
     def show_file(file_id)
-      # res = AUTHORIZED_DRIVE.get_file(file_id, fields: "web_content_link,web_view_link")
       view_link = "https://drive.google.com/uc?export=view&id=#{file_id}"
       content_link = "https://drive.google.com/uc?export=download&id=#{file_id}"
       links = { image: view_link, download: content_link }
