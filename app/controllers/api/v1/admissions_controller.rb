@@ -4,7 +4,7 @@ class Api::V1::AdmissionsController < ApplicationController
   def create
     @admission = @current_user.admissions.build(admission_params)
     if @admission.valid?
-
+      
       # @drive = GoogleDrive::Client.new
       # folder_id = @drive.create_folder(directory_id, @admission.diagnosis).id
       # @admission.folder_id = folder_id
@@ -56,7 +56,7 @@ class Api::V1::AdmissionsController < ApplicationController
   def admission_params
     params
       .require(:admission)
-      .permit(:diagnosis, :health_facility, :start_date, :end_date, :notes)
+      .permit(:diagnosis, :health_facility, :start_date, :end_date, :notes, doctor_ids: [])
   end
 
   def directory_id

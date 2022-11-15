@@ -56,9 +56,9 @@ class Api::V1::ConsultationsController < ApplicationController
   def consultation_params
     params
       .require(:consultation)
-      .permit(:diagnosis, :health_facility, :schedule, :notes)
+      .permit(:diagnosis, :health_facility, :schedule, :notes, doctor_ids: [])
   end
-  
+
   def directory_id
     @current_user.categories.find_by(name: "Consultations").folder_id
   end
