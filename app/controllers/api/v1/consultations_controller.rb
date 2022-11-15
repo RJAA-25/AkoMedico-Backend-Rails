@@ -38,6 +38,9 @@ class Api::V1::ConsultationsController < ApplicationController
   end
 
   def destroy
+    # @drive = GoogleDrive::Client.new
+    # consultation_directory = @current_user.categories.find_by(name: "Consultations").folder_id
+    # @drive.delete_file(consultation_directory)
     @consultation.destroy
     render json: { message: "Consultation has been removed." },
                   status: :ok

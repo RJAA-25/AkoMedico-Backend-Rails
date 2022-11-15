@@ -7,16 +7,16 @@ class Api::V1::RegistrationsController < ApplicationController
   def create
     @user = User.new(register_params)
     if @user.save
-
       # @drive = GoogleDrive::Client.new
       # root_id = @drive.create_folder("akomedico_folder_id", @user.uid ).id
-      # consultation_id = @drive.create_folder(root_id, "Consultations")
+      # consultation_id = @drive.create_folder(root_id, "Consultations").id
       # admission_id = @drive.create_folder(root_id, "Admissions").id
-
-      # @current_user.categories.create(name: "Consultations", folder_id: consultation_id)
-      # @current_user.categories.create(name: "Admissions", folder_id: admission_id)
+      # @user.categories.create(name: "Root", folder_id: root_id)
+      # @user.categories.create(name: "Consultations", folder_id: consultation_id)
+      # @user.categories.create(name: "Admissions", folder_id: admission_id)
 
       # For Testing Purposes
+      @user.categories.create(name: "Root", folder_id: SecureRandom.alphanumeric(10))
       @user.categories.create(name: "Consultations", folder_id: SecureRandom.alphanumeric(10))
       @user.categories.create(name: "Admissions", folder_id: SecureRandom.alphanumeric(10))
       

@@ -40,6 +40,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
+    # @drive = GoogleDrive::Client.new
+    # root_directory = @current_user.categories.find_by(name: "Root").folder_id
+    # @drive.delete_file(root_directory)
     @current_user.destroy
     render json: { message: "Account has been removed." },
                   status: :ok

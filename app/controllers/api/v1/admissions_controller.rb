@@ -38,6 +38,9 @@ class Api::V1::AdmissionsController < ApplicationController
   end
 
   def destroy
+    # @drive = GoogleDrive::Client.new
+    # admission_directory = @current_user.categories.find_by(name: "Admissions").folder_id
+    # @drive.delete_file(admission_directory)
     @admission.destroy
     render json: { message: "Admission has been removed." },
                   status: :ok
