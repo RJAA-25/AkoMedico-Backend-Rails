@@ -20,9 +20,12 @@ class Api::V1::RegistrationsController < ApplicationController
       @user.categories.create(name: "Consultations", folder_id: SecureRandom.alphanumeric(10))
       @user.categories.create(name: "Admissions", folder_id: SecureRandom.alphanumeric(10))
       
-      # Send Confirmation Email
       payload = { user_email: @user.email }
       verify_token = JsonWebToken.encode(payload, 3.days.from_now)
+
+      # Send Confirmation Email
+      ConfirmationMailer.with(user: @user, token: verify_token).verify_account.deliver_now
+      
       render json: { 
                       user: @user, 
                       verify_token: verify_token, 

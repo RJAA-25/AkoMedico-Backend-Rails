@@ -4,12 +4,13 @@ class Api::V1::UsersController < ApplicationController
     @current_user.email = params[:user][:email]
     if @current_user.email_changed?
       if @current_user.valid?
-        if DateTime.current > @current_user.updated_at + 30.minutes
+        if DateTime.current > @current_user.updated_at + 5.seconds
           @current_user.restore_email!
           @current_user.update(updated_at: DateTime.current)
-          # Send Confirmation Email
           payload = { user_uid: @current_user.uid, user_email: params[:user][:email] }
           update_token = JsonWebToken.encode(payload, 30.minutes.from_now)
+          # Send Confirmation Email
+          ConfirmationMailer.with(user: @current_user, new_email: params[:user][:email], token: update_token).update_email_address.deliver_now
           render json: { 
                           update_token: update_token,
                           message: "A confirmation email has been sent to your new email address. Please accomplish within the next 30 minutes to save your changes." 

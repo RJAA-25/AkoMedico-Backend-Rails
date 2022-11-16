@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       # Confirmations
       get "confirmations/verify" => "confirmations#verify"
       post "confirmations/resend" => "confirmations#resend"
-      get "confirmations/update-email" => "confirmations#update"
+      get "confirmations/update-email" => "confirmations#update_email"
 
       # Users
       post "users/update-email" => "users#update_email"

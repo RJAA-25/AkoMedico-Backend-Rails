@@ -1,6 +1,6 @@
 class Api::V1::ConfirmationsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:verify, :update]
-  skip_before_action :authenticate_request, only: [:verify, :update]
+  skip_before_action :verify_authenticity_token, only: [:verify, :update_email]
+  skip_before_action :authenticate_request, only: [:verify, :update_email]
   skip_before_action :account_confirmed
 
   def verify
@@ -32,9 +32,11 @@ class Api::V1::ConfirmationsController < ApplicationController
       render json: { message: "Account has already been verified." },
                     status: :accepted
     else
-      # Send Confirmation Email
       payload = { user_email: @current_user.email }
       verify_token = JsonWebToken.encode(payload, 3.days.from_now)
+      
+      # Send Confirmation Email
+      ConfirmationMailer.with(user: @current_user, token: verify_token).resend_token.deliver_now
       render json: { 
                       verify_token: verify_token, 
                       message: "A confirmation email has been sent to verify your account."
@@ -43,7 +45,7 @@ class Api::V1::ConfirmationsController < ApplicationController
     end
   end
 
-  def update
+  def update_email
     token = params[:token]
     begin
       decoded = JsonWebToken.decode(token)
