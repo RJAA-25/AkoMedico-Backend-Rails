@@ -4,14 +4,7 @@ class Api::V1::AdmissionsController < ApplicationController
   def create
     @admission = @current_user.admissions.build(admission_params)
     if @admission.valid?
-      
-      # @drive = GoogleDrive::Client.new
-      # folder_id = @drive.create_folder(directory_id, @admission.diagnosis).id
-      # @admission.folder_id = folder_id
-
-      # For Testing Purposes
       @admission.folder_id = SecureRandom.alphanumeric(10)
-
       @admission.save
       render json: { 
                       admission: @admission,
@@ -38,9 +31,6 @@ class Api::V1::AdmissionsController < ApplicationController
   end
 
   def destroy
-    # @drive = GoogleDrive::Client.new
-    # admission_directory = @current_user.categories.find_by(name: "Admissions").folder_id
-    # @drive.delete_file(admission_directory)
     @admission.destroy
     render json: { message: "Admission has been removed." },
                   status: :ok
