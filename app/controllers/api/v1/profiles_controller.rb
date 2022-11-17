@@ -19,7 +19,7 @@ class Api::V1::ProfilesController < ApplicationController
     if @profile.update(profile_params)
       render json: { 
                       profile: @profile,
-                      message: "Profile updated successfully." 
+                      message: "Profile has been updated." 
                     },
                     status: :ok
     else
