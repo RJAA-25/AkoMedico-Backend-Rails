@@ -34,8 +34,6 @@ class Api::V1::ConfirmationsController < ApplicationController
     else
       payload = { user_email: @current_user.email }
       verify_token = JsonWebToken.encode(payload, 3.days.from_now)
-      
-      # Send Confirmation Email
       ConfirmationMailer.with(user: @current_user, token: verify_token).resend_token.deliver_now
       render json: { 
                       verify_token: verify_token, 

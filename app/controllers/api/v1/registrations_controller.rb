@@ -7,25 +7,16 @@ class Api::V1::RegistrationsController < ApplicationController
   def create
     @user = User.new(register_params)
     if @user.save
-      # @drive = GoogleDrive::Client.new
-      # root_id = @drive.create_folder("akomedico_folder_id", @user.uid ).id
-      # consultation_id = @drive.create_folder(root_id, "Consultations").id
-      # admission_id = @drive.create_folder(root_id, "Admissions").id
-      # @user.categories.create(name: "Root", folder_id: root_id)
-      # @user.categories.create(name: "Consultations", folder_id: consultation_id)
-      # @user.categories.create(name: "Admissions", folder_id: admission_id)
-
-      # For Testing Purposes
-      @user.categories.create(name: "Root", folder_id: SecureRandom.alphanumeric(10))
-      @user.categories.create(name: "Consultations", folder_id: SecureRandom.alphanumeric(10))
-      @user.categories.create(name: "Admissions", folder_id: SecureRandom.alphanumeric(10))
-      
+      @drive = GoogleDrive::Client.new
+      root_id = @drive.create_folder("akomedico_folder_id", @user.uid ).id
+      consultation_id = @drive.create_folder(root_id, "Consultations").id
+      admission_id = @drive.create_folder(root_id, "Admissions").id
+      @user.categories.create(name: "Root", folder_id: root_id)
+      @user.categories.create(name: "Consultations", folder_id: consultation_id)
+      @user.categories.create(name: "Admissions", folder_id: admission_id)
       payload = { user_email: @user.email }
       verify_token = JsonWebToken.encode(payload, 3.days.from_now)
-
-      # Send Confirmation Email
       ConfirmationMailer.with(user: @user, token: verify_token).verify_account.deliver_now
-      
       render json: { 
                       user: @user, 
                       verify_token: verify_token, 

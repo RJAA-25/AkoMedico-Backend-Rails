@@ -9,7 +9,6 @@ class Api::V1::UsersController < ApplicationController
           @current_user.update(updated_at: DateTime.current)
           payload = { user_uid: @current_user.uid, user_email: params[:user][:email] }
           update_token = JsonWebToken.encode(payload, 30.minutes.from_now)
-          # Send Confirmation Email
           ConfirmationMailer.with(user: @current_user, new_email: params[:user][:email], token: update_token).update_email_address.deliver_now
           render json: { 
                           update_token: update_token,
@@ -41,9 +40,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    # @drive = GoogleDrive::Client.new
-    # root_directory = @current_user.categories.find_by(name: "Root").folder_id
-    # @drive.delete_file(root_directory)
+    @drive = GoogleDrive::Client.new
+    root_directory = @current_user.categories.find_by(name: "Root").folder_id
+    @drive.delete_file(root_directory)
     @current_user.destroy
     render json: { message: "Account has been removed." },
                   status: :ok
