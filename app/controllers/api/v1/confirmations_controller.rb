@@ -59,8 +59,8 @@ class Api::V1::ConfirmationsController < ApplicationController
                     status: :unprocessable_entity
     else
       @user.update(email: decoded[:user_email])
-      render json: { message: "Email address has been updated successfully." },
-                      status: :accepted
+      render json: { message: "Email address has been updated." },
+                      status: :ok
     end
   end
 end
