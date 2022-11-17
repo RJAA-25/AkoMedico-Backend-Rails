@@ -7,7 +7,7 @@ class Api::V1::EmergencyContactsController < ApplicationController
     if @emergency_contact.save
       render json: { 
                       emergency_contact: @emergency_contact,
-                      messasge: "Emergency contact has been added."
+                      message: "Emergency contact has been added."
                     },
                     status: :created
     else
@@ -20,7 +20,7 @@ class Api::V1::EmergencyContactsController < ApplicationController
     if @emergency_contact.update(emergency_contact_params)
       render json: { 
                     emergency_contact: @emergency_contact,
-                    messasge: "Emergency contact has been updated."
+                    message: "Emergency contact has been updated."
                   },
                   status: :ok
     else
