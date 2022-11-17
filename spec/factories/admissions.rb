@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :admission do
-    folder_id { SecureRandom.alphanumeric(10) }
+    # folder_id { SecureRandom.alphanumeric(10) }
     diagnosis { "Appendicitis" }
     health_facility { "Philippine General Hospital" }
     start_date { 7.days.ago }
