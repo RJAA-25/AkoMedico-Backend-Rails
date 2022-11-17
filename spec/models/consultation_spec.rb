@@ -3,11 +3,6 @@ require 'rails_helper'
 RSpec.describe Consultation, type: :model do
   let(:consult) { FactoryBot.build(:consultation) }
 
-  # it "validates presence of folder id" do
-  #   consult.folder_id = nil
-  #   expect(consult).to_not be_valid
-  # end
-
   it "validates presence of diagnosis" do
     consult.diagnosis = nil
     expect(consult).to_not be_valid
