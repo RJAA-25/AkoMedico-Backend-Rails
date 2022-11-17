@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
+  root "pages#root"
+  
   namespace :api do
     namespace :v1 do
-      
       # Registrations
       post "register" => "registrations#create"
       
