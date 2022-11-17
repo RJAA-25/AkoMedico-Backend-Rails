@@ -13,11 +13,11 @@ RSpec.describe "Api::V1::Prescriptions", type: :request do
 
   valid_create = { issue: "consultation", upload: ["file_1", "file_2", "file_3"] }
   valid_update = { issue: "consultation", upload: ["file_4", "file_5"], remove: ["file_1"] }
-  invalid_create_update = { issue: "consultation" }
+  invalid_create_update = { issue: "consultation", upload: nil, remove: nil }
 
   # valid_create = { issue: "admission", upload: ["file_1", "file_2", "file_3"] }
   # valid_update = { issue: "admission", upload: ["file_4", "file_5"], remove: ["file_1"] }
-  # invalid_create_update = { issue: "admission" }
+  # invalid_create_update = { issue: "admission", upload: nil, remove: nil }
   
   describe "POST /create" do
     it "creates prescription with valid prescription" do
