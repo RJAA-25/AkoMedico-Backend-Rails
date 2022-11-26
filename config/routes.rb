@@ -29,6 +29,11 @@ Rails.application.routes.draw do
       patch "emergency-contacts/update/:id" => "emergency_contacts#update"
       delete "emergency-contacts/destroy/:id" => "emergency_contacts#destroy"
 
+      # Doctors
+      post "doctors/create" => "doctors#create"
+      patch "doctors/update/:id" => "doctors#update"
+      delete "doctors/destroy/:id" => "doctors#destroy"
+
       # Conditions
       post "conditions/create" => "conditions#create"
       patch "conditions/update/:id" => "conditions#update"
@@ -55,6 +60,16 @@ Rails.application.routes.draw do
       # Abstracts
       post "abstracts/create/:uid" => "abstracts#create"
       patch "abstracts/update/:uid" => "abstracts#update"
+
+      # Requests
+      get "requests/access" => "requests#access"
+      get "requests/overview" => "requests#overview"
+      get "requests/profile" => "requests#profile"
+      get "requests/doctors" => "requests#doctors"
+      get "requests/emergency-contacts" => "requests#emergency_contacts"
+      get "requests/existing-conditions" => "requests#conditions"
+      get "requests/consultations" => "requests#consultations"
+      get "requests/admissions" => "requests#admissions"
     end
   end
 end

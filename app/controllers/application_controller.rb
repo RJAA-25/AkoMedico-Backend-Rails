@@ -4,12 +4,12 @@ class ApplicationController < ActionController::API
   include JsonWebToken
   include GoogleDrive
 
+  before_action :authenticate_request
+  before_action :account_confirmed
+
   protect_from_forgery with: :exception
   rescue_from ActionController::InvalidAuthenticityToken,with: :new_csrf_cookie
   rescue_from ActiveRecord::RecordNotFound, with: :no_record_found
-
-  before_action :authenticate_request
-  before_action :account_confirmed
 
   private
 
@@ -31,7 +31,8 @@ class ApplicationController < ActionController::API
   def authenticate_request
     @current_user ||= User.find_by(uid: session[:user_uid])
     unless @current_user
-      render json: { message: "Please log in to continue." },
+      cookies.delete("CSRF-TOKEN")
+      render json: { error: "Please log in to continue." },
                     status: :unauthorized
     end
   end

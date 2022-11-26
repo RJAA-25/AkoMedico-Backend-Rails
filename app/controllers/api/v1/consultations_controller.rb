@@ -4,17 +4,16 @@ class Api::V1::ConsultationsController < ApplicationController
   def create
     @consultation = @current_user.consultations.build(consultation_params)
     if @consultation.valid?
-
-      # @drive = GoogleDrive::Client.new
-      # folder_id = @drive.create_folder(directory_id, @consultation.diagnosis).id
-      # @consultation.folder_id = folder_id
-
-      # For Testing Purposes
-      @consultation.folder_id = SecureRandom.alphanumeric(10)
-
+      @drive = GoogleDrive::Client.new
+      folder_id = @drive.create_folder(directory_id, @consultation.diagnosis).id
+      @consultation.folder_id = folder_id
       @consultation.save
+      consult = JSON.parse(@consultation.to_json)
+      consult[:doctors] = @consultation.doctor_ids
+      consult[:prescriptions] = []
+      consult[:results] = []
       render json: { 
-                      consultation: @consultation,
+                      consultation: consult,
                       message: "Consultation has been added."
                     },
                     status: :created
@@ -26,8 +25,12 @@ class Api::V1::ConsultationsController < ApplicationController
 
   def update
     if @consultation.update(consultation_params)
+      consult = JSON.parse(@consultation.to_json)
+      consult[:doctors] = @consultation.doctor_ids
+      consult[:prescriptions] = @consultation.prescriptions
+      consult[:results] = @consultation.results
       render json: {
-                      consultation: @consultation,
+                      consultation: consult,
                       message: "Consultation has been updated."
                     },
                     status: :ok
@@ -38,9 +41,9 @@ class Api::V1::ConsultationsController < ApplicationController
   end
 
   def destroy
-    # @drive = GoogleDrive::Client.new
-    # consultation_directory = @current_user.categories.find_by(name: "Consultations").folder_id
-    # @drive.delete_file(consultation_directory)
+    @drive = GoogleDrive::Client.new
+    consultation_directory = @consultation.folder_id
+    @drive.delete_file(consultation_directory)
     @consultation.destroy
     render json: { message: "Consultation has been removed." },
                   status: :ok
