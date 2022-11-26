@@ -16,10 +16,10 @@ class Profile < ApplicationRecord
                   presence: true
   validates :civil_status,
                   presence: true,
-                  inclusion: { in: ["single", "married", "divorced", "separated", "widowed"] }
+                  inclusion: { in: ["Single", "Married", "Divorced", "Separated", "Widowed"] }
   validates :contact_number,
                   presence: true,
-                  length: { in: 11..13,
+                  length: { in: 7..15,
                     message: "Invalid format." }
   validates :height,
                   presence: true,
@@ -29,7 +29,7 @@ class Profile < ApplicationRecord
                   comparison: { greater_than: 0 }
   validates :sex,
                   presence: true,
-                  inclusion: { in: ["male", "female"] }
+                  inclusion: { in: ["Male", "Female"] }
   validates :blood_type,
                   presence: true,
                   inclusion: { in: ["Unknown", "A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"] }

@@ -17,8 +17,12 @@ class Api::V1::ResultsController < ApplicationController
                               }
         @target.results.create(upload_params)
       end
-      render json: { message: "Results have been added." },
-                      status: :created
+      target = @target.results
+      render json: { 
+                      results: target,
+                      message: "Results have been added." 
+                    },
+                    status: :created
     else
       render json: { error: "Upload failed. Files are missing."},
                     status: :unprocessable_entity

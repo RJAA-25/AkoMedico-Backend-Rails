@@ -11,7 +11,7 @@ class EmergencyContact < ApplicationRecord
                   presence: true
   validates :contact_number,
                   presence: true,
-                  length: { in: 11..13,
+                  length: { in: 7..15,
                     message: "Invalid format." }
 
   private

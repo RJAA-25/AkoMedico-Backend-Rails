@@ -8,7 +8,7 @@ class Api::V1::RegistrationsController < ApplicationController
     @user = User.new(register_params)
     if @user.save
       @drive = GoogleDrive::Client.new
-      root_id = @drive.create_folder("akomedico_folder_id", @user.uid ).id
+      root_id = @drive.create_folder(ENV['AKOMEDICO_PRODUCTION_ROOT'], @user.uid ).id
       consultation_id = @drive.create_folder(root_id, "Consultations").id
       admission_id = @drive.create_folder(root_id, "Admissions").id
       @user.categories.create(name: "Root", folder_id: root_id)

@@ -8,8 +8,13 @@ class Api::V1::AdmissionsController < ApplicationController
       folder_id = @drive.create_folder(directory_id, @admission.diagnosis).id
       @admission.folder_id = folder_id
       @admission.save
+      admit = JSON.parse(@admission.to_json)
+      admit[:doctors] = @admission.doctor_ids
+      admit[:prescriptions] = []
+      admit[:results] = []
+      admit[:abstracts] = []
       render json: { 
-                      admission: @admission,
+                      admission: admit,
                       message: "Admission has been added."
                     },
                     status: :created
@@ -21,6 +26,11 @@ class Api::V1::AdmissionsController < ApplicationController
 
   def update
     if @admission.update(admission_params)
+      admit = JSON.parse(@admission.to_json)
+      admit[:doctors] = @admission.doctor_ids
+      admit[:prescriptions] = @admission.prescriptions
+      admit[:results] = @admission.results
+      admit[:abstracts] = @admission.abstracts
       render json: {
                       admission: @admission,
                       message: "Admission has been updated."
@@ -34,7 +44,7 @@ class Api::V1::AdmissionsController < ApplicationController
 
   def destroy
     @drive = GoogleDrive::Client.new
-    admission_directory = @current_user.categories.find_by(name: "Admissions").folder_id
+    admission_directory = @admission.folder_id
     @drive.delete_file(admission_directory)
     @admission.destroy
     render json: { message: "Admission has been removed." },

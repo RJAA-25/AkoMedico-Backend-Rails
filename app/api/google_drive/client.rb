@@ -24,7 +24,7 @@ module GoogleDrive
     end
 
     def delete_file(file_id)
-      drive.delete_file(file_id)
+      AUTHORIZED_DRIVE.delete_file(file_id)
     end
   end
 end

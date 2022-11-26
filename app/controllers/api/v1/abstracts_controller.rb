@@ -7,7 +7,7 @@ class Api::V1::AbstractsController < ApplicationController
       upload_files.each do |file|
         source = file.tempfile.to_io
         filename = file.original_filename
-        upload_id = @drive.upload_file(@dmission.folder_id, filename, source).id
+        upload_id = @drive.upload_file(@admission.folder_id, filename, source).id
         @drive.file_access(upload_id)
         links = @drive.show_file(upload_id)
         upload_params = {
@@ -17,7 +17,10 @@ class Api::V1::AbstractsController < ApplicationController
                               }
         @admission.abstracts.create(upload_params)
       end
-      render json: { message: "Abstract has been added." },
+      abstracts = @admission.abstracts
+      render json: { 
+                      abstracts: abstracts,
+                      message: "Abstract has been added." },
                       status: :created
     else
       render json: { error: "Upload failed. Files are missing."},
@@ -62,8 +65,8 @@ class Api::V1::AbstractsController < ApplicationController
   private
 
   def set_admission
-    @admisison = Admission.find_by(uid: params[:uid])
-    no_record_found unless @admisison
+    @admission = Admission.find_by(uid: params[:uid])
+    no_record_found unless @admission
   end
 
   def abstract_params

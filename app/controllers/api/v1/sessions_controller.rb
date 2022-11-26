@@ -11,7 +11,8 @@ class Api::V1::SessionsController < ApplicationController
       render json: {  
                       user: @user,
                       email_confirmed: @user.email_confirmed,
-                      message: "Logged in successfully." 
+                      message: "Logged in successfully.",
+                      profile: @user.profile 
                     },
                     status: :ok
     else

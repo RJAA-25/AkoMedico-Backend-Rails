@@ -17,8 +17,12 @@ class Api::V1::PrescriptionsController < ApplicationController
                               }
         @target.prescriptions.create(upload_params)
       end
-      render json: { message: "Prescriptions have been added." },
-                      status: :created
+      target = @target.prescriptions
+      render json: {
+                      prescriptions: target,
+                      message: "Prescriptions have been added." 
+                    },
+                    status: :created
     else
       render json: { error: "Upload failed. Files are missing."},
                     status: :unprocessable_entity
