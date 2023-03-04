@@ -25,7 +25,7 @@ class Api::V1::RequestsController < ApplicationController
     consultations_arr = []
     @consultations.each do |consultation|
       consult = JSON.parse(consultation.to_json)
-      consult[:doctors] = consultation.doctor_ids
+      consult[:doctor_ids] = consultation.doctor_ids
       consult[:prescriptions] = consultation.prescriptions
       consult[:results] = consultation.results
       consultations_arr << consult
@@ -34,10 +34,10 @@ class Api::V1::RequestsController < ApplicationController
     admissions_arr = []
     @admissions.each do |admission|
       admit = JSON.parse(admission.to_json)
-      admit[:doctors] = admission.doctor_ids
+      admit[:doctor_ids] = admission.doctor_ids
       admit[:prescriptions] = admission.prescriptions
       admit[:results] = admission.results
-      admit[:abstract] = admission.abstracts
+      admit[:abstracts] = admission.abstracts
       admissions_arr << admit
     end
     render json: { 
@@ -90,7 +90,7 @@ class Api::V1::RequestsController < ApplicationController
     consultations_arr = []
     @consultations.each do |consultation|
       consult = JSON.parse(consultation.to_json)
-      consult[:doctors] = consultation.doctor_ids
+      consult[:doctor_ids] = consultation.doctor_ids
       consult[:prescriptions] = consultation.prescriptions
       consult[:results] = consultation.results
       consultations_arr << consult
@@ -107,10 +107,10 @@ class Api::V1::RequestsController < ApplicationController
     admissions_arr = []
     @admissions.each do |admission|
       admit = JSON.parse(admission.to_json)
-      admit[:doctors] = admission.doctor_ids
+      admit[:doctor_ids] = admission.doctor_ids
       admit[:prescriptions] = admission.prescriptions
       admit[:results] = admission.results
-      admit[:abstract] = admission.abstracts
+      admit[:abstracts] = admission.abstracts
       admissions_arr << admit
     end
     render json: {

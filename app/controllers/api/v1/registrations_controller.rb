@@ -7,13 +7,16 @@ class Api::V1::RegistrationsController < ApplicationController
   def create
     @user = User.new(register_params)
     if @user.save
+
       @drive = GoogleDrive::Client.new
       root_id = @drive.create_folder(ENV['AKOMEDICO_PRODUCTION_ROOT'], @user.uid ).id
       consultation_id = @drive.create_folder(root_id, "Consultations").id
       admission_id = @drive.create_folder(root_id, "Admissions").id
+
       @user.categories.create(name: "Root", folder_id: root_id)
       @user.categories.create(name: "Consultations", folder_id: consultation_id)
       @user.categories.create(name: "Admissions", folder_id: admission_id)
+
       payload = { user_email: @user.email }
       verify_token = JsonWebToken.encode(payload, 3.days.from_now)
       ConfirmationMailer.with(user: @user, token: verify_token).verify_account.deliver_now

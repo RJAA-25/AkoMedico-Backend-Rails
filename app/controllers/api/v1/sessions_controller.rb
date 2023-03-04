@@ -10,7 +10,7 @@ class Api::V1::SessionsController < ApplicationController
       set_csrf_cookie
       render json: {  
                       user: @user,
-                      email_confirmed: @user.email_confirmed,
+                      # email_confirmed: @user.email_confirmed,
                       message: "Logged in successfully.",
                       profile: @user.profile 
                     },

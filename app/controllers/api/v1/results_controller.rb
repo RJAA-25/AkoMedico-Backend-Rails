@@ -31,21 +31,6 @@ class Api::V1::ResultsController < ApplicationController
 
   def update
     @drive = GoogleDrive::Client.new
-    if upload_files
-      upload_files.each do |file|
-        source = file.tempfile.to_io
-        filename = file.original_filename
-        upload_id = @drive.upload_file(@target.folder_id, filename, source).id
-        @drive.file_access(upload_id)
-        links = @drive.show_file(upload_id)
-        upload_params = {
-                                file_id: upload_id,
-                                image_link: links[:image],
-                                download_link: links[:download]
-                              }
-        @target.results.create(upload_params)
-      end
-    end
     if remove_files
       @results = @target.results
       remove_files.each do |file_id|
@@ -53,13 +38,15 @@ class Api::V1::ResultsController < ApplicationController
         file = @results.find_by(file_id: file_id)
         file.destroy
       end
-    end
-    if !upload_files && !remove_files
-      render json: { error: "Update failed. Files are missing."},
-                    status: :unprocessable_entity
-    else
-      render json: { message: "Results have been updated." },
+      target = @target.results
+      render json: {
+                      results: target,
+                      message: "Results have been removed." 
+                    },
                     status: :ok
+    else
+      render json: { error: "Removal failed. No files selected."},
+                    status: :unprocessable_entity
     end
   end
 
