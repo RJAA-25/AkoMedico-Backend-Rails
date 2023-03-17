@@ -4,11 +4,10 @@ class Api::V1::ConsultationsController < ApplicationController
   def create
     @consultation = @current_user.consultations.build(consultation_params)
     if @consultation.valid?
-
-      @drive = GoogleDrive::Client.new
-      folder_id = @drive.create_folder(directory_id, @consultation.diagnosis).id
-      @consultation.folder_id = folder_id
-
+      uid = SecureRandom.alphanumeric
+      @client = Cloudinary::Client.new
+      @client.create_folder("#{@current_user.uid}/#{uid}")
+      @consultation.uid = uid
       @consultation.save
       consult = JSON.parse(@consultation.to_json)
       consult[:doctor_ids] = @consultation.doctor_ids
@@ -43,10 +42,8 @@ class Api::V1::ConsultationsController < ApplicationController
   end
 
   def destroy
-    @drive = GoogleDrive::Client.new
-    consultation_directory = @consultation.folder_id
-    @drive.delete_file(consultation_directory)
-
+    @client = Cloudinary::Client.new
+    @client.delete_folder("#{@current_user.uid}/#{@consultation.uid}")
     @consultation.destroy
     render json: { message: "Consultation has been removed." },
                   status: :ok

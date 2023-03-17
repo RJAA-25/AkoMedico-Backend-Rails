@@ -2,18 +2,15 @@ class Api::V1::AbstractsController < ApplicationController
   before_action :set_admission
 
   def create
-    @drive = GoogleDrive::Client.new
     if upload_files
+      @client = Cloudinary::Client.new
       upload_files.each do |file|
+        uid = SecureRandom.alphanumeric
         source = file.tempfile.to_io
-        filename = file.original_filename
-        upload_id = @drive.upload_file(@admission.folder_id, filename, source).id
-        @drive.file_access(upload_id)
-        links = @drive.show_file(upload_id)
+        url = @client.upload_file("#{@current_user.uid}/#{@admission.uid}", source, uid)
         upload_params = {
-                                file_id: upload_id,
-                                image_link: links[:image],
-                                download_link: links[:download]
+                                uid: uid,
+                                image_url: url
                               }
         @admission.abstracts.create(upload_params)
       end
@@ -29,12 +26,12 @@ class Api::V1::AbstractsController < ApplicationController
   end
 
   def update
-    @drive = GoogleDrive::Client.new
     if remove_files
+      @client = Cloudinary::Client.new
       @abstracts = @admission.abstracts
-      remove_files.each do |file_id|
-        @drive.delete_file(file_id)
-        file = @abstracts.find_by(file_id: file_id)
+      remove_files.each do |uid|
+        @client.delete_file("#{@current_user.uid}/#{@admission.uid}/#{uid}")
+        file = @abstracts.find_by(uid: uid)
         file.destroy
       end
       abstracts = @admission.abstracts

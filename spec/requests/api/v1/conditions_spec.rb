@@ -28,14 +28,14 @@ RSpec.describe "Api::V1::Conditions", type: :request do
   describe "PATCH /update" do
     it "updates condition with valid condition" do
       login_and_confirm(user)
-      patch "/api/v1/conditions/update/#{condition.id}", params: { condition: valid_condition }, headers: set_headers
+      patch "/api/v1/conditions/update/#{condition.uid}", params: { condition: valid_condition }, headers: set_headers
       expect(json_response["message"]).to eq("Condition has been updated.")
       expect(response).to have_http_status(:ok)
     end
 
     it "rejects condition update with invalid condition" do
       login_and_confirm(user)
-      patch "/api/v1/conditions/update/#{condition.id}", params: { condition: invalid_condition }, headers: set_headers
+      patch "/api/v1/conditions/update/#{condition.uid}", params: { condition: invalid_condition }, headers: set_headers
       expect(json_response["errors"].size).to be > 0
       expect(response).to have_http_status(:unprocessable_entity)
     end
@@ -44,7 +44,7 @@ RSpec.describe "Api::V1::Conditions", type: :request do
   describe "DELETE /destroy" do
     it "removes condition from user" do
       login_and_confirm(user)
-      delete "/api/v1/conditions/destroy/#{condition.id}", headers: set_headers
+      delete "/api/v1/conditions/destroy/#{condition.uid}", headers: set_headers
       expect(json_response["message"]).to eq("Condition has been removed.")
       expect(response).to have_http_status(:ok)
     end

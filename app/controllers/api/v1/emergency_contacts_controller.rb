@@ -4,7 +4,9 @@ class Api::V1::EmergencyContactsController < ApplicationController
 
   def create
     @emergency_contact = @current_user.emergency_contacts.build(emergency_contact_params)
-    if @emergency_contact.save
+    if @emergency_contact.valid?
+      @emergency_contact.uid = SecureRandom.alphanumeric
+      @emergency_contact.save
       render json: { 
                       emergency_contact: @emergency_contact,
                       message: "Emergency contact has been added."
@@ -38,7 +40,7 @@ class Api::V1::EmergencyContactsController < ApplicationController
   private
 
   def set_emergency_contact
-    @emergency_contact = EmergencyContact.find(params[:id])
+    @emergency_contact = EmergencyContact.find_by(uid: params[:uid])
     no_record_found unless @emergency_contact
   end
 

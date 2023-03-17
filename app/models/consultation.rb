@@ -8,10 +8,6 @@ class Consultation < ApplicationRecord
     self.health_facility = format_facility if health_facility
   end
 
-  before_create do
-    self.uid = SecureRandom.alphanumeric(12)
-  end
-
   validates :diagnosis,
                   presence: true
   validates :health_facility,

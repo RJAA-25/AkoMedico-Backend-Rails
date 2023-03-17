@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
   include ActionController::RequestForgeryProtection
   include JsonWebToken
-  include GoogleDrive
+  include Cloudinary
 
   before_action :authenticate_request
   before_action :account_confirmed

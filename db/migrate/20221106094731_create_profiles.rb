@@ -10,6 +10,8 @@ class CreateProfiles < ActiveRecord::Migration[7.0]
       t.decimal :weight, precision: 4, scale: 1
       t.string :sex
       t.string :blood_type
+      t.string :uid, default: nil
+      t.string :image_url, default: nil
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

@@ -10,14 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "abstracts", force: :cascade do |t|
-    t.string "file_id"
-    t.string "image_link"
-    t.string "download_link"
+    t.string "uid"
+    t.string "image_url"
     t.bigint "admission_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -26,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
 
   create_table "admissions", force: :cascade do |t|
     t.string "uid"
-    t.string "folder_id"
     t.string "diagnosis"
     t.string "health_facility"
     t.date "start_date"
@@ -43,19 +41,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
     t.bigint "doctor_id", null: false
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.string "folder_id"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_categories_on_user_id"
-  end
-
   create_table "conditions", force: :cascade do |t|
     t.string "diagnosis"
     t.date "start_date"
     t.date "end_date"
+    t.string "uid"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -64,7 +54,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
 
   create_table "consultations", force: :cascade do |t|
     t.string "uid"
-    t.string "folder_id"
     t.string "diagnosis"
     t.string "health_facility"
     t.date "schedule"
@@ -84,6 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
     t.string "first_name"
     t.string "last_name"
     t.string "specialty"
+    t.string "uid"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -94,6 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
     t.string "full_name"
     t.string "relationship"
     t.string "contact_number"
+    t.string "uid"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -101,9 +92,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
   end
 
   create_table "prescriptions", force: :cascade do |t|
-    t.string "file_id"
-    t.string "image_link"
-    t.string "download_link"
+    t.string "uid"
+    t.string "image_url"
     t.string "prescription_issue_type", null: false
     t.bigint "prescription_issue_id", null: false
     t.datetime "created_at", null: false
@@ -121,6 +111,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
     t.decimal "weight", precision: 4, scale: 1
     t.string "sex"
     t.string "blood_type"
+    t.string "uid"
+    t.string "image_url"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -128,9 +120,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
   end
 
   create_table "results", force: :cascade do |t|
-    t.string "file_id"
-    t.string "image_link"
-    t.string "download_link"
+    t.string "uid"
+    t.string "image_url"
     t.string "result_issue_type", null: false
     t.bigint "result_issue_id", null: false
     t.datetime "created_at", null: false
@@ -151,7 +142,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
 
   add_foreign_key "abstracts", "admissions"
   add_foreign_key "admissions", "users"
-  add_foreign_key "categories", "users"
   add_foreign_key "conditions", "users"
   add_foreign_key "consultations", "users"
   add_foreign_key "doctors", "users"
