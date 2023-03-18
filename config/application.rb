@@ -24,7 +24,7 @@ module RailsAkomedico
     # Skip views, helpers and assets when generating a new resource.
     
     if Rails.env == "production"
-      config.session_store :cookie_store, key: "_akomedico_session", domain: ENV["SESSION_DOMAIN"]
+      config.session_store :cookie_store, key: "_akomedico_session", domain: :all
     else
       config.session_store :cookie_store, key: "_akomedico_session"
     end
