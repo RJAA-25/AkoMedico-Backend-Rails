@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   private
 
   def set_csrf_cookie
-    cookies["CSRF-TOKEN"] = form_authenticity_token
+    cookies["CSRF-TOKEN"] = { value: form_authenticity_token, domain: ENV["CLIENT_DOMAIN"]}
   end
 
   def new_csrf_cookie

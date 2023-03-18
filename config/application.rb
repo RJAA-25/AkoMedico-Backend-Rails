@@ -22,8 +22,16 @@ module RailsAkomedico
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
+    
+    if Rails.env == "production"
+      config.session_store :cookie_store, key: "_akomedico_session", domain: ENV["CLIENT_DOMAIN"]
+    else
+      config.session_store :cookie_store, key: "_akomedico_session"
+    end
+
     config.api_only = true
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore
+    config.middleware.use config.session_store, config.session_options
   end
 end
