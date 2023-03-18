@@ -7,7 +7,8 @@ ruby "3.1.2"
 gem "rails", "~> 7.0.4"
 
 # Use postgresql as the database for Active Record
-gem "pg", "~> 1.1"
+# gem "pg", "~> 1.1"
+gem 'pg', '~> 1.4', '>= 1.4.6'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
@@ -36,7 +37,7 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem "rack-cors"
 
-gem "cloudinary"
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -53,4 +54,5 @@ end
 
 gem 'figaro'
 gem 'jwt'
-gem 'google-apis-drive_v3'
+gem "cloudinary"
+gem 'activerecord-cockroachdb-adapter', '~> 7.0.0'

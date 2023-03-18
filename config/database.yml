@@ -24,6 +24,9 @@ default: &default
 development:
   <<: *default
   database: rails_akomedico_development
+  # adapter: cockroachdb
+  # url: <%= ENV['DATABASE_URL'] %>
+  # sslrootcert: "./root.crt"
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -81,7 +84,7 @@ test:
 #
 production:
   <<: *default
+  # database: rails_akomedico_production
+  adapter: cockroachdb
   url: <%= ENV['DATABASE_URL'] %>
-  database: rails_akomedico_production
-  username: rails_akomedico
-  password: <%= ENV["RAILS_AKOMEDICO_DATABASE_PASSWORD"] %>
+  sslrootcert: "./root.crt"
