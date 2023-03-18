@@ -2,7 +2,7 @@ class ConfirmationMailer < ApplicationMailer
 
   def verify_account
     @user = params[:user]
-    @url = "http://127.0.0.1:3000/api/v1/confirmations/verify?token=#{params[:token]}"
+    @url = "https://server-akomedico.onrender.com/api/v1/confirmations/verify?token=#{params[:token]}"
     mail(
           to: email_address_with_name(@user.email, full_name(@user)),
           subject: "AkoMedico: Confirmation"
@@ -11,7 +11,7 @@ class ConfirmationMailer < ApplicationMailer
 
   def resend_token
     @user = params[:user]
-    @url = "http://127.0.0.1:3000/api/v1/confirmations/verify?token=#{params[:token]}"
+    @url = "https://server-akomedico.onrender.com/api/v1/confirmations/verify?token=#{params[:token]}"
     mail(
           to: email_address_with_name(@user.email, full_name(@user)),
           subject: "AkoMedico: Resend Confirmation"
@@ -21,7 +21,7 @@ class ConfirmationMailer < ApplicationMailer
   def update_email_address
     @user = params[:user]
     @new_email = params[:new_email]
-    @url = "http://127.0.0.1:3000/api/v1/confirmations/update-email?token=#{params[:token]}"
+    @url = "https://server-akomedico.onrender.com/api/v1/confirmations/update-email?token=#{params[:token]}"
     mail(
           to: email_address_with_name(@new_email, full_name(@user)),  
           subject: "AkoMedico: Update Email Address"
