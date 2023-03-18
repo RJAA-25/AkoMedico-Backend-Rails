@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :abstract do
-    file_id { SecureRandom.alphanumeric(10) }
-    image_link { "An image link" }
-    download_link { "A download link" }
+    image_url { "An image url" }
     association :admission
   end
 end

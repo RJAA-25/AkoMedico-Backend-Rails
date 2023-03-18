@@ -3,7 +3,9 @@ class Api::V1::DoctorsController < ApplicationController
 
   def create
     @doctor = @current_user.doctors.build(doctor_params)
-    if @doctor.save
+    if @doctor.valid?
+      @doctor.uid = SecureRandom.alphanumeric
+      @doctor.save
       render json: { 
                       doctor: @doctor,
                       message: "Doctor has been added."
@@ -37,7 +39,7 @@ class Api::V1::DoctorsController < ApplicationController
   private
 
   def set_doctor
-    @doctor = Doctor.find(params[:id])
+    @doctor = Doctor.find_by(uid: params[:uid])
     no_record_found unless @doctor
   end
 

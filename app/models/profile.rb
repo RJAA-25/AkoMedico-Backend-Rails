@@ -32,7 +32,7 @@ class Profile < ApplicationRecord
                   inclusion: { in: ["Male", "Female"] }
   validates :blood_type,
                   presence: true,
-                  inclusion: { in: ["Unknown", "A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"] }
+                  inclusion: { in: ["A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"] }
   
   private
 

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::Cookies
   include ActionController::RequestForgeryProtection
   include JsonWebToken
-  include GoogleDrive
+  include Cloudinary
 
   before_action :authenticate_request
   before_action :account_confirmed
@@ -19,8 +19,8 @@ class ApplicationController < ActionController::API
 
   def new_csrf_cookie
     set_csrf_cookie
-    render json: { message: "Request secured. Please try again." },
-                  status: :unprocessable_entity
+    render json: { error: "Request secured. Please try again." },
+                  status: :bad_request
   end
 
   def no_record_found

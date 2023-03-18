@@ -26,18 +26,18 @@ Rails.application.routes.draw do
       
       # Emergency Contacts
       post "emergency-contacts/create" => "emergency_contacts#create"
-      patch "emergency-contacts/update/:id" => "emergency_contacts#update"
-      delete "emergency-contacts/destroy/:id" => "emergency_contacts#destroy"
+      patch "emergency-contacts/update/:uid" => "emergency_contacts#update"
+      delete "emergency-contacts/destroy/:uid" => "emergency_contacts#destroy"
 
       # Doctors
       post "doctors/create" => "doctors#create"
-      patch "doctors/update/:id" => "doctors#update"
-      delete "doctors/destroy/:id" => "doctors#destroy"
+      patch "doctors/update/:uid" => "doctors#update"
+      delete "doctors/destroy/:uid" => "doctors#destroy"
 
       # Conditions
       post "conditions/create" => "conditions#create"
-      patch "conditions/update/:id" => "conditions#update"
-      delete "conditions/destroy/:id" => "conditions#destroy"
+      patch "conditions/update/:uid" => "conditions#update"
+      delete "conditions/destroy/:uid" => "conditions#destroy"
 
       # Consultations
       post "consultations/create" => "consultations#create"

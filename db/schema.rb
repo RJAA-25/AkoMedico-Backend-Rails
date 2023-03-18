@@ -10,108 +10,95 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "abstracts", force: :cascade do |t|
-    t.string "file_id"
-    t.string "image_link"
-    t.string "download_link"
+ActiveRecord::Schema[7.0].define(version: 2022_11_08_073935) do
+  create_table "abstracts", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
+    t.string "uid"
+    t.string "image_url"
     t.bigint "admission_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["admission_id"], name: "index_abstracts_on_admission_id"
   end
 
-  create_table "admissions", force: :cascade do |t|
+  create_table "admissions", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.string "uid"
-    t.string "folder_id"
     t.string "diagnosis"
     t.string "health_facility"
     t.date "start_date"
     t.date "end_date"
     t.text "notes"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_admissions_on_user_id"
   end
 
-  create_table "admissions_doctors", id: false, force: :cascade do |t|
+  create_table "admissions_doctors", primary_key: "rowid", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.bigint "admission_id", null: false
     t.bigint "doctor_id", null: false
   end
 
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.string "folder_id"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_categories_on_user_id"
-  end
-
-  create_table "conditions", force: :cascade do |t|
+  create_table "conditions", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.string "diagnosis"
     t.date "start_date"
     t.date "end_date"
+    t.string "uid"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_conditions_on_user_id"
   end
 
-  create_table "consultations", force: :cascade do |t|
+  create_table "consultations", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.string "uid"
-    t.string "folder_id"
     t.string "diagnosis"
     t.string "health_facility"
     t.date "schedule"
     t.text "notes"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_consultations_on_user_id"
   end
 
-  create_table "consultations_doctors", id: false, force: :cascade do |t|
+  create_table "consultations_doctors", primary_key: "rowid", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.bigint "consultation_id", null: false
     t.bigint "doctor_id", null: false
   end
 
-  create_table "doctors", force: :cascade do |t|
+  create_table "doctors", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "specialty"
+    t.string "uid"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_doctors_on_user_id"
   end
 
-  create_table "emergency_contacts", force: :cascade do |t|
+  create_table "emergency_contacts", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.string "full_name"
     t.string "relationship"
     t.string "contact_number"
+    t.string "uid"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_emergency_contacts_on_user_id"
   end
 
-  create_table "prescriptions", force: :cascade do |t|
-    t.string "file_id"
-    t.string "image_link"
-    t.string "download_link"
+  create_table "prescriptions", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
+    t.string "uid"
+    t.string "image_url"
     t.string "prescription_issue_type", null: false
     t.bigint "prescription_issue_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["prescription_issue_type", "prescription_issue_id"], name: "index_prescriptions_on_prescription_issue"
   end
 
-  create_table "profiles", force: :cascade do |t|
+  create_table "profiles", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.date "birth_date"
     t.string "address"
     t.string "nationality"
@@ -121,37 +108,37 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_082232) do
     t.decimal "weight", precision: 4, scale: 1
     t.string "sex"
     t.string "blood_type"
+    t.string "uid"
+    t.string "image_url"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end
 
-  create_table "results", force: :cascade do |t|
-    t.string "file_id"
-    t.string "image_link"
-    t.string "download_link"
+  create_table "results", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
+    t.string "uid"
+    t.string "image_url"
     t.string "result_issue_type", null: false
     t.bigint "result_issue_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["result_issue_type", "result_issue_id"], name: "index_results_on_result_issue"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :bigint, default: -> { "unique_rowid()" }, force: :cascade do |t|
     t.string "uid"
     t.string "first_name"
     t.string "last_name"
     t.string "email"
     t.string "password_digest"
     t.boolean "email_confirmed"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   add_foreign_key "abstracts", "admissions"
   add_foreign_key "admissions", "users"
-  add_foreign_key "categories", "users"
   add_foreign_key "conditions", "users"
   add_foreign_key "consultations", "users"
   add_foreign_key "doctors", "users"

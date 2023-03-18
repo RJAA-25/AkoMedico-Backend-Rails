@@ -3,7 +3,6 @@ class User < ApplicationRecord
 
   has_one :profile, dependent: :destroy
   has_many :emergency_contacts, dependent: :destroy
-  has_many :categories, dependent: :destroy
   has_many :conditions, dependent: :destroy
   has_many :doctors, dependent: :destroy
   has_many :consultations, dependent: :destroy
@@ -15,7 +14,6 @@ class User < ApplicationRecord
   end
 
   before_create do
-    self.uid = SecureRandom.alphanumeric(12)
     self.email = email.downcase
     self.email_confirmed = false
   end

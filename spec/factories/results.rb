@@ -1,8 +1,6 @@
 FactoryBot.define do
   factory :result do
-    file_id { SecureRandom.alphanumeric(10) }
-    image_link { "An image link" }
-    download_link { "A download link" }
+    image_url { "An image url" }
 
     trait :for_consult do
       association :result_issue, factory: :consultation

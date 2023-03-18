@@ -4,12 +4,13 @@ class Api::V1::AdmissionsController < ApplicationController
   def create
     @admission = @current_user.admissions.build(admission_params)
     if @admission.valid?
-      @drive = GoogleDrive::Client.new
-      folder_id = @drive.create_folder(directory_id, @admission.diagnosis).id
-      @admission.folder_id = folder_id
+      uid = SecureRandom.alphanumeric
+      @client = Cloudinary::Client.new
+      @client.create_folder("#{@current_user.uid}/#{uid}")
+      @admission.uid = uid
       @admission.save
       admit = JSON.parse(@admission.to_json)
-      admit[:doctors] = @admission.doctor_ids
+      admit[:doctor_ids] = @admission.doctor_ids
       admit[:prescriptions] = []
       admit[:results] = []
       admit[:abstracts] = []
@@ -27,12 +28,12 @@ class Api::V1::AdmissionsController < ApplicationController
   def update
     if @admission.update(admission_params)
       admit = JSON.parse(@admission.to_json)
-      admit[:doctors] = @admission.doctor_ids
+      admit[:doctor_ids] = @admission.doctor_ids
       admit[:prescriptions] = @admission.prescriptions
       admit[:results] = @admission.results
       admit[:abstracts] = @admission.abstracts
       render json: {
-                      admission: @admission,
+                      admission: admit,
                       message: "Admission has been updated."
                     },
                     status: :ok
@@ -43,9 +44,8 @@ class Api::V1::AdmissionsController < ApplicationController
   end
 
   def destroy
-    @drive = GoogleDrive::Client.new
-    admission_directory = @admission.folder_id
-    @drive.delete_file(admission_directory)
+    @client = Cloudinary::Client.new
+    @client.delete_folder("#{@current_user.uid}/#{@admission.uid}")
     @admission.destroy
     render json: { message: "Admission has been removed." },
                   status: :ok

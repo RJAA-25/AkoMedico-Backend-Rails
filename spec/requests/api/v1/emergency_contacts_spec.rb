@@ -29,14 +29,14 @@ RSpec.describe "Api::V1::EmergencyContacts", type: :request do
   describe "PATCH /update" do
     it "updates emergency contact" do
       login_and_confirm(user)
-      patch "/api/v1/emergency-contacts/update/#{emergency_contact.id}", params: { emergency_contact: valid_emergency_contact }, headers: set_headers
+      patch "/api/v1/emergency-contacts/update/#{emergency_contact.uid}", params: { emergency_contact: valid_emergency_contact }, headers: set_headers
       expect(json_response["message"]).to eq("Emergency contact has been updated.")
       expect(response).to have_http_status(:ok)
     end
 
     it "rejects emergency contact update with invalid emergency contact" do
       login_and_confirm(user)
-      patch "/api/v1/emergency-contacts/update/#{emergency_contact.id}", params: { emergency_contact: invalid_emergency_contact }, headers: set_headers
+      patch "/api/v1/emergency-contacts/update/#{emergency_contact.uid}", params: { emergency_contact: invalid_emergency_contact }, headers: set_headers
       expect(json_response["errors"].size).to be > 0
       expect(response).to have_http_status(:unprocessable_entity)
     end
@@ -45,7 +45,7 @@ RSpec.describe "Api::V1::EmergencyContacts", type: :request do
   describe "DELETE /destroy" do
     it "removes emergency contact from user" do
       login_and_confirm(user)
-      delete "/api/v1/emergency-contacts/destroy/#{emergency_contact.id}", headers: set_headers
+      delete "/api/v1/emergency-contacts/destroy/#{emergency_contact.uid}", headers: set_headers
       expect(json_response["message"]).to eq("Emergency contact has been removed.")
       expect(response).to have_http_status(:ok)
     end

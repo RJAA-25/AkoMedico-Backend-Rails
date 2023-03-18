@@ -4,7 +4,9 @@ class Api::V1::ConditionsController < ApplicationController
 
   def create
     @condition = @current_user.conditions.build(condition_params)
-    if @condition.save
+    if @condition.valid?
+      @condition.uid = SecureRandom.alphanumeric
+      @condition.save
       render json: {
                       condition: @condition,
                       message: "Condition has been added."
@@ -38,7 +40,7 @@ class Api::V1::ConditionsController < ApplicationController
   private
 
   def set_condition
-    @condition = Condition.find(params[:id])
+    @condition = Condition.find_by(uid: params[:uid])
     no_record_found unless @condition
   end
 
