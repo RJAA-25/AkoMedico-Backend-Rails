@@ -1,5 +1,5 @@
 class Api::V1::EmergencyContactsController < ApplicationController
-  
+
   before_action :set_emergency_contact, except: :create
 
   def create

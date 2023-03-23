@@ -1,5 +1,5 @@
 class Api::V1::ConfirmationsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:verify, :update_email]
+  # skip_before_action :verify_authenticity_token, only: [:verify, :update_email]
   skip_before_action :authenticate_request, only: [:verify, :update_email]
   skip_before_action :account_confirmed
 
@@ -19,12 +19,12 @@ class Api::V1::ConfirmationsController < ApplicationController
       if @user.email_confirmed
         render json: { message: "Account has already been verified." },
         status: :accepted
-        redirect_to ENV['AKOMEDICO_FRONTEND'], allow_other_host: true
+        redirect_to "#{ENV['CLIENT_ADDRESS']}/get-started", allow_other_host: true
       else
         @user.update(email_confirmed: true)
         render json: { message: "Email confirmed. Account has been verified." },
                       status: :ok
-        # redirect_to ENV['AKOMEDICO_FRONTEND'], allow_other_host: true
+        redirect_to "#{ENV['CLIENT_ADDRESS']}/get-started", allow_other_host: true
       end
     end
   end

@@ -1,5 +1,4 @@
 class Api::V1::ConditionsController < ApplicationController
-
   before_action :set_condition, except: :create
 
   def create
