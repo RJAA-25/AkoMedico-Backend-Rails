@@ -22,7 +22,7 @@ RSpec.describe "Api::V1::Sessions", type: :request do
   describe "POST /logout" do
     it "logs out the authenticated user" do
       login(user)
-      post "/api/v1/logout", headers: set_headers
+      post "/api/v1/logout", headers: set_headers(user)
       expect(json_response["message"]).to eq("Logged out successfully.")
       expect(response).to have_http_status(:ok)
     end

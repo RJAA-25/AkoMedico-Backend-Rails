@@ -25,14 +25,14 @@ RSpec.describe "Api::V1::Confirmations", type: :request do
   describe "POST /resend" do
     it "sends another confirmation email" do
       login(user)
-      post "/api/v1/confirmations/resend", headers: set_headers
+      post "/api/v1/confirmations/resend", headers: set_headers(user)
       expect(json_response["message"]).to eq("A confirmation email has been sent to verify your account.")
       expect(response).to have_http_status(:ok)
     end
 
     it "confirms that account is already verified" do
       login_and_confirm(user)
-      post "/api/v1/confirmations/resend", headers: set_headers
+      post "/api/v1/confirmations/resend", headers: set_headers(user)
       expect(json_response["message"]).to eql("Account has already been verified.")
       expect(response).to have_http_status(:accepted)
     end

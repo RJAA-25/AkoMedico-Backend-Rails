@@ -19,7 +19,7 @@ RSpec.describe Consultation, type: :model do
   end
 
   it "validates schedule not later than current date" do
-    consult.schedule = 1.day.from_now
+    consult.schedule = Date.today + 1
     expect(consult).to_not be_valid
   end
 

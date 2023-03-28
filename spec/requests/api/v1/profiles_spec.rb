@@ -12,14 +12,14 @@ RSpec.describe "Api::V1::Profiles", type: :request do
   describe "POST /create" do
     it "creates valid profile" do
       login_and_confirm(user)
-      post "/api/v1/profiles/create", params: { profile: valid_profile }, headers: set_headers
+      post "/api/v1/profiles/create", params: { profile: valid_profile }, headers: set_headers(user)
       expect(json_response["message"]).to eq("Profile has been created.")
       expect(response).to have_http_status(:created)
     end
 
     it "rejects profile creation with invalid profile" do
       login_and_confirm(user)
-      post "/api/v1/profiles/create", params: { profile: invalid_profile }, headers: set_headers
+      post "/api/v1/profiles/create", params: { profile: invalid_profile }, headers: set_headers(user)
       expect(json_response["errors"].size).to be > 0
       expect(response).to have_http_status(:unprocessable_entity)
     end
@@ -29,7 +29,7 @@ RSpec.describe "Api::V1::Profiles", type: :request do
     it "updates with valid profile" do
       login_and_confirm(user)
       profile
-      patch "/api/v1/profiles/update", params: { profile: valid_profile }, headers: set_headers
+      patch "/api/v1/profiles/update", params: { profile: valid_profile }, headers: set_headers(user)
       expect(json_response["message"]).to eq("Profile has been updated.")
       expect(response).to have_http_status(:ok)
     end
@@ -37,7 +37,7 @@ RSpec.describe "Api::V1::Profiles", type: :request do
     it "rejects profile update with invalid profile" do
       login_and_confirm(user)
       profile
-      patch "/api/v1/profiles/update", params: { profile: invalid_profile }, headers: set_headers
+      patch "/api/v1/profiles/update", params: { profile: invalid_profile }, headers: set_headers(user)
       expect(json_response["errors"].size).to be > 0
       expect(response).to have_http_status(:unprocessable_entity)
     end

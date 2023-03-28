@@ -24,7 +24,7 @@ RSpec.describe Admission, type: :model do
   end
 
   it "validates start date not later than current day" do
-    admit.start_date = 1.day.from_now
+    admit.start_date = Date.today + 1
     expect(admit).to_not be_valid
   end
 
@@ -39,7 +39,7 @@ RSpec.describe Admission, type: :model do
   end 
 
   it "validates end date not later current day" do
-    admit.end_date = 1.day.from_now
+    admit.end_date = Date.today + 1
     expect(admit).to_not be_valid
   end
 

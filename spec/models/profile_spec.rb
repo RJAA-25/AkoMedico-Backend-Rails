@@ -32,7 +32,7 @@ RSpec.describe Profile, type: :model do
     profile.civil_status = "It's complicated"
     expect(profile).to_not be_valid
 
-    profile.civil_status = "married"
+    profile.civil_status = "Married"
     expect(profile).to be_valid
   end
 
@@ -60,7 +60,7 @@ RSpec.describe Profile, type: :model do
     profile.sex = "alien"
     expect(profile).to_not be_valid
 
-    profile.sex = "male"
+    profile.sex = "Male"
     expect(profile).to be_valid
   end
 

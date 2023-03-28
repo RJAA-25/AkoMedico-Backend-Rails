@@ -24,8 +24,8 @@ class Api::V1::ProfilesController < ApplicationController
 
   def update
     @profile = @current_user.profile
-    if @profile.valid?
-      @profile.update(profile_params)
+    # if @profile.valid?
+    if @profile.update(profile_params)
       if image_file
         uid = SecureRandom.alphanumeric
         source = image_file.tempfile.to_io
